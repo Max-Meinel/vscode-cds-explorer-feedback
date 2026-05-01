@@ -1,0 +1,11 @@
+# Keine sensiblen Daten committen
+# (Die anon key ist OK, aber zur Sicherheit)
+.env
+.env.local
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
