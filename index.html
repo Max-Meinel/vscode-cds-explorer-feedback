@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VS Code CDS Explorer - Feedback</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    .highlight-missing {
+      animation: shake 0.5s;
+      padding: 1rem;
+      border: 2px solid #ef4444;
+      border-radius: 0.5rem;
+      background-color: #fef2f2;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+    .peer:checked ~ div {
+      background-color: rgba(59, 130, 246, 0.12) !important;
+      border-color: rgb(59, 130, 246) !important;
+    }
+    .peer:checked ~ div div {
+      color: rgb(30, 64, 175) !important;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen py-4 md:py-8 px-4">
+  <div class="max-w-4xl mx-auto">
+    <div class="bg-white rounded-lg shadow-lg p-4 md:p-8">
+      <!-- Header -->
+      <div class="mb-6 md:mb-8">
+        <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2">VS Code CDS Explorer - Feedback</h1>
+        <p class="text-base md:text-lg text-gray-600 mb-4">Feedback-Umfrage für Bachelorarbeit und Weiterentwicklung</p>
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-3 md:p-4 rounded">
+          <p class="text-sm md:text-base text-blue-900">
+            <strong>Dauer:</strong> ca. 10-15 Minuten<br>
+            <strong>Danke</strong>, dass du dir Zeit nimmst! Dein Feedback hilft mir sehr.
+          </p>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <form id="feedbackForm" class="space-y-6 md:space-y-8">
+
+        <!-- Sektion 1: Kontext -->
+        <section class="border-t pt-6">
+          <h2 class="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Dein Hintergrund</h2>
+
+          <div class="space-y-6">
+            <div>
+              <label class="block text-sm md:text-base font-medium text-gray-700 mb-2">
+                Wie lange arbeitest du bereits mit SAP CAP? <span class="text-red-600">*</span>
+              </label>
+              <select name="cap_experience_duration" required class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <option value="">Bitte wählen...</option>
+                <option value="<6_monate">Weniger als 6 Monate</option>
+                <option value="6-12_monate">6-12 Monate</option>
+                <option value="1-2_jahre">1-2 Jahre</option>
+                <option value="2-5_jahre">2-5 Jahre</option>
+                <option value=">5_jahre">Mehr als 5 Jahre</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm md:text-base font-medium text-gray-700 mb-3">
+                Wie aufwändig ist es, alle zu einem Service gehörenden Artefakte zu lokalisieren (über verschiedene Dateien und Ordner hinweg)? <span class="text-red-600">*</span>
+              </label>
+              <div class="flex gap-1 md:gap-3 justify-between">
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="current_effort_score" value="1" required class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-5 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-3xl font-bold text-gray-400 mb-0.5 md:mb-2 peer-checked:text-white">1</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Sehr einfach</div>
+                  </div>
+                </label>
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="current_effort_score" value="2" class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-5 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-3xl font-bold text-gray-400 mb-0.5 md:mb-2 peer-checked:text-white">2</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Einfach</div>
+                  </div>
+                </label>
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="current_effort_score" value="3" class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-5 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-3xl font-bold text-gray-400 mb-0.5 md:mb-2 peer-checked:text-white">3</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Mittel</div>
+                  </div>
+                </label>
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="current_effort_score" value="4" class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-5 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-3xl font-bold text-gray-400 mb-0.5 md:mb-2 peer-checked:text-white">4</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Aufwändig</div>
+                  </div>
+                </label>
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="current_effort_score" value="5" class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-5 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-3xl font-bold text-gray-400 mb-0.5 md:mb-2 peer-checked:text-white">5</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Sehr aufwändig</div>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Sektion 2: Installation -->
+        <section class="border-t pt-6">
+          <h2 class="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Extension installieren</h2>
+
+          <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-6 mb-6">
+            <h3 class="font-semibold text-gray-900 mb-3">Installation:</h3>
+            <ol class="list-decimal list-inside space-y-2 text-sm text-gray-700">
+              <li>
+                <a href="https://github.tools.sap/cap/vscode-cds-explorer/releases"
+                   target="_blank"
+                   class="text-blue-600 hover:text-blue-800 underline font-medium">
+                  VSIX-Datei herunterladen
+                </a>
+              </li>
+              <li>In VS Code: <code class="bg-white px-2 py-1 rounded text-xs">Extensions → ... → Install from VSIX...</code></li>
+              <li>CAP-Projekt deiner Wahl öffnen</li>
+              <li>CDS Explorer Icon in der Sidebar klicken</li>
+            </ol>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm md:text-base font-medium text-gray-700 mb-2">
+                Hattest du Probleme bei der Installation? (optional)
+              </label>
+              <textarea name="installation_notes" rows="3"
+                        class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="z.B. 'CDS Language Server nicht gefunden', 'VSIX-Installation fehlgeschlagen', 'Alles lief problemlos', ..."></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- Sektion 3: Explorieren -->
+        <section class="border-t pt-6">
+          <h2 class="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Extension ausprobieren</h2>
+
+          <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+            <p class="text-sm text-gray-700 mb-3">
+              <strong>Nimm dir 3-5 Minuten</strong> und probiere die Extension aus:
+            </p>
+            <ul class="list-disc list-inside space-y-1 text-sm text-gray-700">
+              <li><strong>Tree View:</strong> Siehst du deine Services?</li>
+              <li><strong>Navigation:</strong> Klicke auf ein Artefakt → springt es zur richtigen Stelle?</li>
+              <li><strong>Suche:</strong> Probiere das Suchfeld aus</li>
+            </ul>
+          </div>
+
+          <div>
+            <label class="block text-sm md:text-base font-medium text-gray-700 mb-2">
+              Was ist dir beim Ausprobieren aufgefallen? (optional)
+            </label>
+            <textarea name="exploration_notes" rows="4"
+                      class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="z.B. 'Die Suche funktioniert super!', 'Der Tree ist etwas unübersichtlich', ..."></textarea>
+          </div>
+        </section>
+
+        <!-- Sektion 4: Realistische Aufgabe -->
+        <section class="border-t pt-6">
+          <h2 class="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Realistische Aufgabe</h2>
+
+          <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+            <p class="text-sm text-gray-700 mb-2">
+              <strong>Wähle jetzt eine typische Aufgabe</strong> aus deinem Alltag und führe sie MIT der Extension durch:
+            </p>
+            <ul class="list-disc list-inside space-y-1 text-sm text-gray-600">
+              <li>Alle Entities eines bestimmten Services finden</li>
+              <li>Eine Action/Function lokalisieren</li>
+              <li>Handler-Implementierung zu einem Service finden</li>
+              <li>Verstehen, welche Services es in einem Projekt gibt</li>
+            </ul>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm md:text-base font-medium text-gray-700 mb-2">
+                Welche Aufgabe hast du gewählt? <span class="text-red-600">*</span>
+              </label>
+              <input type="text" name="chosen_task" required
+                     class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                     placeholder="z.B. 'Handler für submitOrder im TravelService lokalisieren'">
+            </div>
+
+            <div>
+              <label class="block text-sm md:text-base font-medium text-gray-700 mb-2">
+                In welchem Projekt hast du die Extension getestet? (optional)
+              </label>
+              <input type="text" name="project_name"
+                     class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                     placeholder="z.B. 'cap/sflight', 'cap/bookstore', 'internes Projekt', ...">
+            </div>
+          </div>
+        </section>
+
+        <!-- Sektion 5: Entlastung -->
+        <section class="border-t pt-6">
+          <h2 class="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Bewertung</h2>
+
+          <div class="space-y-6">
+            <div>
+              <label class="block text-sm md:text-base font-medium text-gray-700 mb-3">
+                Wie stark hat dich die Extension bei dieser Aufgabe entlastet? <span class="text-red-600">*</span>
+              </label>
+              <div class="flex gap-1 md:gap-3 justify-between">
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="relief_score" value="1" required class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-6 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-4xl font-bold text-gray-400 mb-0.5 md:mb-3 peer-checked:text-white">1</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Gar nicht</div>
+                  </div>
+                </label>
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="relief_score" value="2" class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-6 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-4xl font-bold text-gray-400 mb-0.5 md:mb-3 peer-checked:text-white">2</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Wenig</div>
+                  </div>
+                </label>
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="relief_score" value="3" class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-6 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-4xl font-bold text-gray-400 mb-0.5 md:mb-3 peer-checked:text-white">3</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Mittel</div>
+                  </div>
+                </label>
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="relief_score" value="4" class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-6 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-4xl font-bold text-gray-400 mb-0.5 md:mb-3 peer-checked:text-white">4</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Stark</div>
+                  </div>
+                </label>
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="relief_score" value="5" class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-6 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-4xl font-bold text-gray-400 mb-0.5 md:mb-3 peer-checked:text-white">5</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Sehr stark</div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm md:text-base font-medium text-gray-700 mb-3">
+                Wie einfach war es, die Extension zu verstehen und zu nutzen? <span class="text-red-600">*</span>
+              </label>
+              <div class="flex gap-1 md:gap-3 justify-between">
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="usability_score" value="1" required class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-6 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-4xl font-bold text-gray-400 mb-0.5 md:mb-3 peer-checked:text-white">1</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Sehr schwer</div>
+                  </div>
+                </label>
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="usability_score" value="2" class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-6 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-4xl font-bold text-gray-400 mb-0.5 md:mb-3 peer-checked:text-white">2</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Schwer</div>
+                  </div>
+                </label>
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="usability_score" value="3" class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-6 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-4xl font-bold text-gray-400 mb-0.5 md:mb-3 peer-checked:text-white">3</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Mittel</div>
+                  </div>
+                </label>
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="usability_score" value="4" class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-6 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-4xl font-bold text-gray-400 mb-0.5 md:mb-3 peer-checked:text-white">4</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Einfach</div>
+                  </div>
+                </label>
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="usability_score" value="5" class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-6 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-4xl font-bold text-gray-400 mb-0.5 md:mb-3 peer-checked:text-white">5</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Sehr einfach</div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm md:text-base font-medium text-gray-700 mb-3">
+                Zeigt die Extension eine verständliche Struktur an? <span class="text-red-600">*</span>
+              </label>
+              <div class="flex gap-1 md:gap-3 justify-between">
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="relationships_score" value="1" required class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-6 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-4xl font-bold text-gray-400 mb-0.5 md:mb-3 peer-checked:text-white">1</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Gar nicht</div>
+                  </div>
+                </label>
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="relationships_score" value="2" class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-6 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-4xl font-bold text-gray-400 mb-0.5 md:mb-3 peer-checked:text-white">2</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Wenig</div>
+                  </div>
+                </label>
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="relationships_score" value="3" class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-6 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-4xl font-bold text-gray-400 mb-0.5 md:mb-3 peer-checked:text-white">3</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Mittel</div>
+                  </div>
+                </label>
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="relationships_score" value="4" class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-6 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-4xl font-bold text-gray-400 mb-0.5 md:mb-3 peer-checked:text-white">4</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Gut</div>
+                  </div>
+                </label>
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="relationships_score" value="5" class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-6 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-4xl font-bold text-gray-400 mb-0.5 md:mb-3 peer-checked:text-white">5</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Sehr gut</div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm md:text-base font-medium text-gray-700 mb-3">
+                Wie häufig würdest du die Extension im Alltag nutzen? <span class="text-red-600">*</span>
+              </label>
+              <div class="flex gap-1 md:gap-3 justify-between">
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="usage_intention_score" value="1" required class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-6 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-4xl font-bold text-gray-400 mb-0.5 md:mb-3 peer-checked:text-white">1</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Nie</div>
+                  </div>
+                </label>
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="usage_intention_score" value="2" class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-6 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-4xl font-bold text-gray-400 mb-0.5 md:mb-3 peer-checked:text-white">2</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Selten</div>
+                  </div>
+                </label>
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="usage_intention_score" value="3" class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-6 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-4xl font-bold text-gray-400 mb-0.5 md:mb-3 peer-checked:text-white">3</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Manchmal</div>
+                  </div>
+                </label>
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="usage_intention_score" value="4" class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-6 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-4xl font-bold text-gray-400 mb-0.5 md:mb-3 peer-checked:text-white">4</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Häufig</div>
+                  </div>
+                </label>
+                <label class="flex-1 cursor-pointer min-w-0">
+                  <input type="radio" name="usage_intention_score" value="5" class="hidden peer">
+                  <div class="border-2 border-gray-300 rounded-lg p-2 md:p-6 text-center transition-all hover:border-gray-500 hover:shadow-md peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:shadow-xl">
+                    <div class="text-lg md:text-4xl font-bold text-gray-400 mb-0.5 md:mb-3 peer-checked:text-white">5</div>
+                    <div class="hidden md:block text-sm font-medium text-gray-600">Sehr häufig</div>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Sektion 6: Qualitative Fragen -->
+        <section class="border-t pt-6">
+          <h2 class="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Abschließende Fragen</h2>
+
+          <div class="space-y-6">
+            <div>
+              <label class="block text-sm md:text-base font-medium text-gray-700 mb-2">
+                Was hat dir an der Extension am besten gefallen?
+              </label>
+              <textarea name="what_liked" rows="3"
+                        class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="z.B. 'Die Suchfunktion ist extrem praktisch', ..."></textarea>
+            </div>
+
+            <div>
+              <label class="block text-sm md:text-base font-medium text-gray-700 mb-2">
+                Was würdest du an der Extension verbessern?
+              </label>
+              <textarea name="what_improve" rows="3"
+                        class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="z.B. 'Feature X fehlt', ..."></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- Submit Button -->
+        <div class="border-t pt-6">
+          <button type="submit"
+                  class="w-full bg-blue-600 text-white py-4 px-6 rounded-lg font-semibold text-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-200">
+            Feedback absenden
+          </button>
+          <p class="text-xs text-gray-500 text-center mt-3">
+            Deine Daten werden anonymisiert ausgewertet und für meine öffentliche Bachelorarbeit sowie die Weiterentwicklung der Extension verwendet.
+          </p>
+        </div>
+      </form>
+
+      <!-- Loading Overlay -->
+      <div id="loading" class="hidden fixed inset-0 bg-white bg-opacity-90 flex items-center justify-center z-50">
+        <div class="text-center">
+          <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <p class="text-gray-600 mt-4 font-medium">Wird gesendet...</p>
+        </div>
+      </div>
+
+      <!-- Error State -->
+      <div id="error" class="hidden bg-red-50 border border-red-200 rounded-lg p-4 mt-4">
+        <p class="text-red-800 font-medium">Fehler beim Senden</p>
+        <p class="text-red-600 text-sm mt-1" id="errorMessage"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
