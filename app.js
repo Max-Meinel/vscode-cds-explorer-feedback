@@ -51,6 +51,17 @@ form.addEventListener('submit', async (e) => {
     return
   }
 
+  // Show confirmation dialog
+  const confirmed = confirm(
+    '⚠️ Feedback wirklich absenden?\n\n' +
+    'Nach dem Absenden kannst du deine Antworten nicht mehr ändern oder zurücknehmen.\n\n' +
+    'Möchtest du fortfahren?'
+  )
+
+  if (!confirmed) {
+    return // User cancelled
+  }
+
   // Show loading overlay without hiding form
   loadingDiv.classList.remove('hidden')
 

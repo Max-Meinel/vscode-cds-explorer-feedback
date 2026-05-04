@@ -168,6 +168,17 @@ df.to_csv('feedback_results.csv', index=False)
 - ✅ **User können nur INSERT** - nicht READ/UPDATE/DELETE
 - ✅ **Nur du kannst lesen** (mit service_role key)
 
+## ⚠️ Wichtiger Hinweis zum Hosting
+
+**Blocker für interne SAP-Nutzung:**  
+Das Feedback-Formular wird **extern auf GitHub Pages gehostet** und sendet Daten an **Supabase (externes Cloud-Hosting)**.  
+Dies ist nicht über SAP-interne Infrastruktur gehostet und kann daher **nicht für offizielle SAP-Prozesse** verwendet werden.
+
+**Verwendungszweck:**  
+- ✅ Für Bachelorarbeit / akademische Evaluation geeignet
+- ✅ Anonyme Feedback-Erhebung für Prototypen
+- ❌ **Nicht für produktive SAP-Umgebungen** oder vertrauliche Daten geeignet
+
 ## 🐛 Troubleshooting
 
 ### "Failed to fetch"
