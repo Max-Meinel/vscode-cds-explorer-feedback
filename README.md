@@ -168,27 +168,6 @@ df.to_csv('feedback_results.csv', index=False)
 - ✅ **User können nur INSERT** - nicht READ/UPDATE/DELETE
 - ✅ **Nur du kannst lesen** (mit service_role key)
 
-## 📧 Email-Text für Teilnehmer
-
-```
-Betreff: [10 Min] Feedback zur CDS Explorer Extension gesucht
-
-Hi zusammen,
-
-ich schreibe gerade meine Bachelorarbeit über eine VS Code Extension für CAP-Projekte.
-Die Extension zeigt alle Service-Artefakte aggregiert in einem Tree View mit Such- und Filterfunktion.
-
-**Was ich brauche:**
-10-15 Min eurer Zeit, um die Extension in eurem Projekt zu testen und Feedback zu geben.
-
-**Link zur Umfrage:** https://YOUR_USERNAME.github.io/BA/feedback-form/
-
-Die Extension ist auch im VS Code Marketplace verfügbar.
-
-Vielen Dank! 🙏
-Max
-```
-
 ## 🐛 Troubleshooting
 
 ### "Failed to fetch"
